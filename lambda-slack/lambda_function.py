@@ -1,35 +1,65 @@
+# lambda_function.py
 import boto3
 import csv
-import json
 import os
+import json
+import urllib.parse
 import requests
 
-identitystore_client = boto3.client('identitystore')
+s3 = boto3.client('s3')
+identitystore = boto3.client('identitystore')
 
-IDENTITY_STORE_ID = 'd-xxxxxxxxxx'  # Replace with your value
-GROUP_ID = 'g-xxxxxxxxxx'           # Replace with your value
-
+IDENTITY_STORE_ID = 'd-9067d1167c'                          # Replace with your actual ID
+GROUP_ID = '645864e8-2041-7088-69b0-7517e985e781'           # Replace with your actual group ID
 SLACK_WEBHOOK_URL = os.environ['SLACK_WEBHOOK_URL']
 
 def send_slack_notification(message):
-    requests.post(SLACK_WEBHOOK_URL, json={"text": message})
-    print(f"Slack response code: {response.status_code}")
-    print(f"Slack response text: {response.text}")
+    try:
+        response = requests.post(SLACK_WEBHOOK_URL, json={"text": message})
+        print(f"Slack response: {response.status_code}, {response.text}")
+    except Exception as e:
+        print(f"Slack notification failed: {e}")
+
+def user_exists(username):
+    try:
+        response = identitystore.list_users(
+            IdentityStoreId=IDENTITY_STORE_ID,
+            Filters=[
+                {
+                    'AttributePath': 'UserName',
+                    'AttributeValue': username
+                }
+            ]
+        )
+        return len(response['Users']) > 0
+    except Exception as e:
+        print(f"Error checking user existence: {e}")
+        return False
 
 def lambda_handler(event, context):
+    print("Event received:", json.dumps(event))
+    
     try:
-        body = event.get('body')
-        if not body:
-            raise Exception("No CSV body received from GitHub")
+        bucket = event['Records'][0]['s3']['bucket']['name']
+        key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'])
 
-        reader = csv.DictReader(body.strip().splitlines())
-        created = []
+        response = s3.get_object(Bucket=bucket, Key=key)
+        csv_content = response['Body'].read().decode('utf-8').splitlines()
+        reader = csv.DictReader(csv_content)
+
+        created_users = []
+        skipped_users = []
 
         for row in reader:
-            print(f"Creating user: {row['Username']}")
-            response = identitystore_client.create_user(
+            username = row['Username']
+            if user_exists(username):
+                print(f"User {username} already exists. Skipping.")
+                skipped_users.append(username)
+                continue
+
+            user_response = identitystore.create_user(
                 IdentityStoreId=IDENTITY_STORE_ID,
-                UserName=row['Username'],
+                UserName=username,
                 DisplayName=f"{row['FirstName']} {row['LastName']}",
                 Name={
                     'GivenName': row['FirstName'],
@@ -41,19 +71,23 @@ def lambda_handler(event, context):
                     'Primary': True
                 }]
             )
-            user_id = response['UserId']
+            user_id = user_response['UserId']
 
-            identitystore_client.create_group_membership(
+            identitystore.create_group_membership(
                 IdentityStoreId=IDENTITY_STORE_ID,
                 GroupId=GROUP_ID,
                 MemberId={'UserId': user_id}
             )
-            created.append(row['Username'])
 
-        send_slack_notification(f"✅ Created {len(created)} users: {', '.join(created)}")
-        return {"statusCode": 200, "body": json.dumps({"message": "Users created"})}
+            created_users.append(username)
+
+        message = f"✅ Lambda User Sync Completed\nCreated: {created_users}\nSkipped: {skipped_users}"
+        print(message)
+        send_slack_notification(message)
+        return {"statusCode": 200, "body": message}
 
     except Exception as e:
-        send_slack_notification(f"❌ Error creating users: {str(e)}")
-        return {"statusCode": 500, "body": json.dumps({"error": str(e)})}
-
+        error_msg = f"❌ Lambda error: {str(e)}"
+        print(error_msg)
+        send_slack_notification(error_msg)
+        return {"statusCode": 500, "body": error_msg}
