@@ -267,3 +267,4 @@ This project is licensed under the MIT License.
 ---
 
 This README provides a comprehensive overview of the project, its architecture, setup, and detailed usage instructions for both administrators and students. Feel free to modify or extend it as needed. Enjoy automating your AWS user provisioning!
+***
