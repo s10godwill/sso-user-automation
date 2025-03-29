@@ -7,12 +7,9 @@ on:
     paths:
       - 'data/students.csv'
 
-env:
-  AWS_REGION: us-east-1
-
 jobs:
   upload-to-s3:
-    environment: AWS-Credentials  # 👈 this is the key
+    environment: AWS-Credentials  # 🔐 tells GitHub to unlock environment-scoped secrets
     runs-on: ubuntu-latest
 
     steps:
@@ -27,4 +24,5 @@ jobs:
           aws-region: us-east-1
 
       - name: Upload students.csv to S3
-        run: aws s3 cp data/students.csv s3://sso-user-creation-s3/students.csv
+        run: |
+          aws s3 cp data/students.csv s3://sso-user-creation-s3/students.csv
