@@ -8,6 +8,8 @@ This project automates the process of provisioning federated access for students
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Architecture](#architecture)
+  - [Setup](#setup)
+    - [AWS Configuration](#aws-configuration)
   - [GitHub Actions Workflow](#github-actions-workflow)
     - [Branch Protection \& PR Workflow](#branch-protection--pr-workflow)
   - [How It Works](#how-it-works)
@@ -49,6 +51,7 @@ graph TD;
     C --> D
     D --> E
     D --> F
+```
 
 - GitHub Repo: Contains the students.csv file.
 
@@ -61,7 +64,7 @@ graph TD;
 - Slack: Sends notifications summarizing the process.
 
 ## Setup
-* Prerequisites
+**Prerequisites**
 * - AWS account with IAM Identity Center configured.
 
 * - An S3 bucket (e.g., sso-user-creation-s3) to store the CSV.
@@ -100,6 +103,7 @@ graph TD;
     }
   ]
 }
+```
 
 *** Note: You can scope down the resources later.
 
@@ -142,8 +146,9 @@ jobs:
       - name: Upload students.csv to S3
         run: |
           aws s3 cp data/students.csv s3://sso-user-creation-s3/students.csv
+```
 
-*** Note: Make sure to store AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as GitHub Secrets (or in an Environment like AWS-Credentials).
+*Note: Make sure to store AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as GitHub Secrets (or in an Environment like AWS-Credentials).*
 
 ### Branch Protection & PR Workflow
 Go to your GitHub repository Settings > Branches.
