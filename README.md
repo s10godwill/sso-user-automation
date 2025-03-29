@@ -71,25 +71,25 @@ graph TD;
 
 ## Setup
 **Prerequisites**
-* - AWS account with IAM Identity Center configured.
+* AWS account with IAM Identity Center configured.
 
-* - An S3 bucket (e.g., sso-user-creation-s3) to store the CSV.
+* An S3 bucket (e.g., sso-user-creation-s3) to store the CSV.
 
-* - A Slack workspace and an Incoming Webhook URL.
+* A Slack workspace and an Incoming Webhook URL.
 
-* - GitHub repository with the project code.
+* GitHub repository with the project code.
 
-* - AWS IAM role for Lambda with permissions:
+* AWS IAM role for Lambda with permissions:
 
-**`identitystore:ListUsers`
+`identitystore:ListUsers`
 
-**`identitystore:CreateUser`
+`identitystore:CreateUser`
 
-**`identitystore:CreateGroupMembership`
+`identitystore:CreateGroupMembership`
 
-**`s3:GetObject`
+`s3:GetObject`
 
-**CloudWatch logging permissions.
+**CloudWatch logging permissions.**
 
 ### AWS Configuration
 * - Create/Update IAM Role for Lambda: Attach a policy that allows:
