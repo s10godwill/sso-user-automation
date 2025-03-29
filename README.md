@@ -199,10 +199,12 @@ Once your user is created, AWS sends an invitation email. Follow the email instr
 ### Usage Instructions for Students
 How to Request Your AWS Access
 Clone the Repository:
-```git clone https://github.com/s10godwill/sso-user-automation.git```
-```cd sso-user-automation```
+
+``git clone https://github.com/s10godwill/sso-user-automation.git``
+``cd sso-user-automation``
+
 ### Create a New Branch:
-<git checkout -b add-your-username>
+``git checkout -b add-your-username``
 
 ### Update the CSV File:
 
