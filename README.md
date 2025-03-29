@@ -201,10 +201,11 @@ How to Request Your AWS Access
 Clone the Repository:
 
 ``git clone https://github.com/s10godwill/sso-user-automation.git``
+
 ``cd sso-user-automation``
 
 ### Create a New Branch:
-``git checkout -b add-your-username``
+``git checkout -b feature/preffered_name``
 
 ### Update the CSV File:
 
