@@ -9,7 +9,7 @@ on:
 
 jobs:
   upload-to-s3:
-    environment: AWS-Credentials  # 🔐 tells GitHub to unlock environment-scoped secrets
+    environment: AWS-Credentials  # tells GitHub to unlock environment-scoped secrets
     runs-on: ubuntu-latest
 
     steps:
