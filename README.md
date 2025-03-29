@@ -19,8 +19,14 @@ This project automates the process of provisioning federated access for students
     - [Notifications:](#notifications)
     - [AWS Invitation:](#aws-invitation)
     - [Usage Instructions for Students](#usage-instructions-for-students)
+    - [Create a New Branch:](#create-a-new-branch)
+    - [Update the CSV File:](#update-the-csv-file)
+    - [Commit Your Changes:](#commit-your-changes)
+    - [Push Your Branch:](#push-your-branch)
     - [On GitHub, create a PR from your branch into main.](#on-github-create-a-pr-from-your-branch-into-main)
+    - [After PR Merge:](#after-pr-merge)
   - [AWS Account Setup:](#aws-account-setup)
+    - [Follow the instructions to:](#follow-the-instructions-to)
   - [Contributing](#contributing)
   - [Issues:](#issues)
   - [License](#license)
@@ -105,7 +111,7 @@ graph TD;
 }
 ```
 
-*** Note: You can scope down the resources later.
+*Note: You can scope down the resources later.*
 
 - Set Up Lambda Function:
 
@@ -193,48 +199,39 @@ Once your user is created, AWS sends an invitation email. Follow the email instr
 ### Usage Instructions for Students
 How to Request Your AWS Access
 Clone the Repository:
+```git clone https://github.com/s10godwill/sso-user-automation.git```
+```cd sso-user-automation```
+### Create a New Branch:
+<git checkout -b add-your-username>
 
-bash
-Copy
-git clone https://github.com/s10godwill/sso-user-automation.git
-cd sso-user-automation
-Create a New Branch:
-
-bash
-Copy
-git checkout -b add-your-username
-Update the CSV File:
+### Update the CSV File:
 
 Open data/students.csv in your text editor.
 
 Add your details as a new row:
-
-csv
-Copy
+```
 FirstName,LastName,Username,Email
 YourFirstName,YourLastName,desiredUsername,your.email@example.com
 Save your changes.
+```
 
-Commit Your Changes:
+### Commit Your Changes:
 
-bash
-Copy
-git add data/students.csv
-git commit -m "Add new student: [Your Name]"
-Push Your Branch:
+<git add data/students.csv>
+<git commit -m "Add new student: [Your Name]">
 
-bash
-Copy
-git push origin add-your-username
+### Push Your Branch:
+<git push origin add-your-username>
+
 Create a Pull Request (PR):
 
 ### On GitHub, create a PR from your branch into main.
 
-Add a description, then submit the PR.
+- Add a description, then submit the PR.
 
-Note: Your PR must be reviewed and approved (by a designated reviewer) before merging.
+*Note: Your PR must be reviewed and approved (by a designated reviewer) before merging.*
 
-After PR Merge:
+### After PR Merge:
 
 Once the PR is merged into main, the GitHub Actions workflow will trigger.
 
@@ -246,11 +243,11 @@ AWS will send you an invitation email to join the AWS Identity Center.
 
 Check your email for the AWS invitation.
 
-Follow the instructions to:
+### Follow the instructions to:
 
-Set your initial password.
+- Set your initial password.
 
-Set up Multi-Factor Authentication (MFA) using an authenticator app.
+- Set up Multi-Factor Authentication (MFA) using an authenticator app.
 
 After completing these steps, you can log in and access your AWS environment.
 
