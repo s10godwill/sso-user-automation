@@ -1,6 +1,6 @@
 # AWS SSO User Automation
 
-This project automates the process of provisioning federated access for students in AWS IAM Identity Center (formerly AWS SSO) by processing a CSV file stored in a GitHub repository. When changes are merged into the main branch, a GitHub Actions workflow uploads the CSV to an S3 bucket, triggering a Lambda function that creates new users (while skipping duplicates) and sends a Slack notification with a summary of the operation.
+This project automates the process of provisioning federated access for students in AWS IAM Identity Center (formerly AWS SSO) by processing a CSV file stored in a GitHub repository. When changes are merged into the main branch, a GitHub Actions workflow uploads the CSV to an S3 bucket, triggering a Lambda function that creates new users (while skipping duplicates) and sends a Slack notification with a summary of the operations.
 
 ## Table of Contents
 
@@ -267,4 +267,4 @@ This project is licensed under the MIT License.
 ---
 
 This README provides a comprehensive overview of the project, its architecture, setup, and detailed usage instructions for both administrators and students. Feel free to modify or extend it as needed. Enjoy automating your AWS user provisioning!
-***
+***Test change
