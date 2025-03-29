@@ -81,15 +81,15 @@ graph TD;
 
 * - AWS IAM role for Lambda with permissions:
 
-** identitystore:ListUsers
+**`identitystore:ListUsers`
 
-** identitystore:CreateUser
+**`identitystore:CreateUser`
 
-** identitystore:CreateGroupMembership
+**`identitystore:CreateGroupMembership`
 
-** s3:GetObject
+**`s3:GetObject`
 
-** CloudWatch logging permissions.
+**CloudWatch logging permissions.
 
 ### AWS Configuration
 * - Create/Update IAM Role for Lambda: Attach a policy that allows:
@@ -159,13 +159,13 @@ jobs:
 ### Branch Protection & PR Workflow
 Go to your GitHub repository Settings > Branches.
 
-*  Add a branch protection rule for main:
+1.  Add a branch protection rule for main:
 
-*  Require pull requests before merging.
+2.  Require pull requests before merging.
 
-*  Require approvals (e.g., at least one reviewer).
+3.  Require approvals (e.g., at least one reviewer).
 
-*  Optionally, require linear history and disallow self-approvals.
+4.  Optionally, require linear history and disallow self-approvals.
 
 ## How It Works
 Updating the CSV:
