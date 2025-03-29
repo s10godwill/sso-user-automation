@@ -159,13 +159,13 @@ jobs:
 ### Branch Protection & PR Workflow
 Go to your GitHub repository Settings > Branches.
 
-* - Add a branch protection rule for main:
+*  Add a branch protection rule for main:
 
-* - Require pull requests before merging.
+*  Require pull requests before merging.
 
-* - Require approvals (e.g., at least one reviewer).
+*  Require approvals (e.g., at least one reviewer).
 
-* - Optionally, require linear history and disallow self-approvals.
+*  Optionally, require linear history and disallow self-approvals.
 
 ## How It Works
 Updating the CSV:
@@ -188,7 +188,7 @@ Creates new users if they don’t exist.
 
 Adds new users to the specified group.
 
-Skips duplicate users.
+**Skips duplicate users.**
 
 ### Notifications:
 Slack is notified with a summary of the created and skipped users.
@@ -219,11 +219,11 @@ Save your changes.
 
 ### Commit Your Changes:
 
-<git add data/students.csv>
-<git commit -m "Add new student: [Your Name]">
+``git add data/students.csv``
+``git commit -m "Add new student: [Your Name]"``
 
 ### Push Your Branch:
-<git push origin add-your-username>
+``git push origin add-your-username>``
 
 Create a Pull Request (PR):
 
