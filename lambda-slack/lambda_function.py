@@ -105,13 +105,13 @@ def lambda_handler(event, context):
             
             created_users.append(username)
         
-        summary = f"✅ Lambda User Sync Completed\nCreated: {created_users}\nSkipped: {skipped_users}"
+        summary = f"Lambda User Sync Completed\nCreated: {created_users}\nSkipped: {skipped_users}"
         print(summary)
         send_slack_notification(summary)
         return {"statusCode": 200, "body": summary}
     
     except Exception as e:
-        error_msg = f"❌ Lambda error: {str(e)}"
+        error_msg = f"Lambda error: {str(e)}"
         print(error_msg)
         send_slack_notification(error_msg)
         return {"statusCode": 500, "body": error_msg}
